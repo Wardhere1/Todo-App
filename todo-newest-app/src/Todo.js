@@ -3,15 +3,24 @@ import { useState, useEffect } from "react";
 const Todo = () => {
   const [input, setInput] = useState("");
   const [todoList, setTodoList] = useState([]);
+  const [editing, setEditing] = useState(false)
+  const [selectedElement, setSelectedElement] = useState()
 
   const handleChange = (e) => {
     const value = e.target.value;
     setInput(value);
   };
 
-  const handleSubmit = (e) => {
-    setTodoList([...todoList, input]);
-    setInput("");
+  const handleSubmit = () => {
+    const updatedTodoList = [...todoList]
+    if (editing === false) {
+      setTodoList([...todoList, input]);
+      setInput("");
+      return
+    } else
+      updatedTodoList.splice(selectedElement, 1, input)
+      setTodoList(updatedTodoList)
+      setEditing(false)
   };
 
   const handleDelete = (item) => {
@@ -22,17 +31,21 @@ const Todo = () => {
   };
 
   const handleEdit = (index) => {
+    setEditing(true)
     setInput(todoList[index])
-    const temp = [...todoList]
-    // const temp2 = temp.splice(index,1,)
+    setSelectedElement(index)
   };
-console.log(input)
-  console.log(todoList);
+
+  console.log(input)
+  console.log(selectedElement)
+  console.log(todoList)
+  console.log(editing)
+
   return (
     <div className="todo-container">
-      <input value={input} className="todo-input" onChange={handleChange}></input>
+      <input value={input} className={editing ? 'editing-todo' : 'todo-input'} onChange={handleChange}></input>
       <button className="todo-button" onClick={handleSubmit}>
-        Submit
+        {editing ? 'Update' : 'Submit'}
       </button>
       {todoList.map((todo, index) => {
         return (
