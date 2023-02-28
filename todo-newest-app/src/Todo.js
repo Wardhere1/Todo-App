@@ -9,7 +9,7 @@ const Todo = () => {
     setInput(value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     setTodoList([...todoList, input]);
     setInput("");
   };
@@ -21,12 +21,16 @@ const Todo = () => {
     setTodoList(newTodo);
   };
 
-  const handleEdit = () => {};
-
+  const handleEdit = (index) => {
+    setInput(todoList[index])
+    const temp = [...todoList]
+    // const temp2 = temp.splice(index,1,)
+  };
+console.log(input)
   console.log(todoList);
   return (
     <div className="todo-container">
-      <input className="todo-input" onChange={handleChange}></input>
+      <input value={input} className="todo-input" onChange={handleChange}></input>
       <button className="todo-button" onClick={handleSubmit}>
         Submit
       </button>
@@ -40,7 +44,7 @@ const Todo = () => {
             >
               Delete
             </button>
-            <button className="edit-button" onClick={handleEdit}>
+            <button className="edit-button" onClick={() => handleEdit(index)}>
               Edit
             </button>
           </>
