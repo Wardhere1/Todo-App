@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 const Todo = () => {
   const [input, setInput] = useState("");
   const [todoList, setTodoList] = useState([]);
+  const { editTodo, setEditTodo } = useState("");
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -21,9 +22,11 @@ const Todo = () => {
     setTodoList(newTodo);
   };
 
-  const handleEdit = () => {};
+  const handleEdit = (index) => {
+    const findTodo = todoList.find((todo) => todo === todoList[index]);
+    setEditTodo(findTodo);
+  };
 
-  console.log(todoList);
   return (
     <div className="todo-container">
       <input className="todo-input" onChange={handleChange}></input>
@@ -40,7 +43,7 @@ const Todo = () => {
             >
               Delete
             </button>
-            <button className="edit-button" onClick={handleEdit}>
+            <button className="edit-button" onClick={() => handleEdit(index)}>
               Edit
             </button>
           </>
