@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+
 const Todo = () => {
   const [input, setInput] = useState("");
   const [todoList, setTodoList] = useState([]);
@@ -40,7 +41,9 @@ const Todo = () => {
   console.log(selectedElement)
   console.log(todoList)
   console.log(editing)
+ 
 
+  console.log(todoList);
   return (
     <div className="todo-container">
       <input value={input} className={editing ? 'editing-todo' : 'todo-input'} onChange={handleChange}></input>
