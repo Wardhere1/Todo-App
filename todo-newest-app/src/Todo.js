@@ -1,6 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
+import { FiDelete } from "react-icons/fi";
+import { ImCheckboxUnchecked } from "react-icons/im";
+
 
 const Todo = () => {
   const [input, setInput] = useState("");
@@ -23,6 +26,7 @@ const Todo = () => {
     } else updatedTodoList.splice(selectedElement, 1, input);
     setTodoList(updatedTodoList);
     setEditing(false);
+    setInput('')
   };
 
   const handleDelete = (item) => {
@@ -51,26 +55,29 @@ const Todo = () => {
   console.log(checked);
   return (
     <div className="todo-container">
-      <input
-        value={input}
-        className={editing ? "editing-todo" : "todo-input"}
-        onChange={handleChange}
-      ></input>
-      <button className="todo-button" onClick={handleSubmit}>
-        {editing ? "Update" : "Submit"}
-      </button>
+      <h1>Enter your new todo</h1>
+      <div className="input-container">
+        <input
+          value={input}
+          className={editing ? "editing-todo" : "todo-input"}
+          onChange={handleChange}
+        ></input>
+        <button className="todo-button" onClick={handleSubmit}>
+          {editing ? "Update" : "Submit"}
+        </button>
+      </div>
       {todoList.map((todo, index) => {
         return (
           <div className="todo-list-container">
-            <li className={checked ? "checked" : ""}>{todo}</li>
+            <li className={checked ? "checked" : "not-checked"}>{todo}</li>
             <div className="buttons-container">
-              <input type="checkbox" onChange={checkedHandler}></input>
-              <button
+              <input className="checkbox" type="checkbox" onChange={checkedHandler}></input>
+              <FiDelete
                 className="delete-button"
                 onClick={() => handleDelete(index)}
               >
                 Delete
-              </button>
+              </FiDelete>
               <FiEdit className="edit-button" onClick={() => handleEdit(index)}>
                 Edit
               </FiEdit>
